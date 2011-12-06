@@ -50,5 +50,9 @@ end
 options[:listeners] = ["#{host}:#{port}"]
 handler = ARGV[0]
 
-Unicorn::Launcher.daemonize!(options) if daemonize
+if daemonize
+  require 'unicorn/launcher'
+  Unicorn::Launcher.daemonize!(options)
+end
+
 Erniecorn.new(handler, options).start.join
